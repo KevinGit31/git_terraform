@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "serverterraformnode1node1" do |serverterraformnode1|
+    serverterraformnode1.vm.box = "ubuntu/bionic64"
+    serverterraformnode1.vm.hostname = 'serverterraformnode1master'
+    #serverterraformnode1.vm.provision "docker"
+    serverterraformnode1.vm.box_url = "ubuntu/bionic64"
+	serverterraformnode1.vm.box_download_insecure = true
+    serverterraformnode1.vm.network :private_network, ip: "192.168.56.105"
+
+    serverterraformnode1.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--name", "serverterraformnode1master"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+	serverterraformnode1.vm.synced_folder "project/", "/home/project", create: true
+	#serverterraformnode1.vm.provision :shell, :path => "provision_master.sh"
+  end
+end

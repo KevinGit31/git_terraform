@@ -1,0 +1,8 @@
+Quand on crée un module sur terraform, il faut suivre les étapes suivantes:
+
+#1 faire un terraform get pour récupérer les nouveaux modules
+
+#2 faire un terraform init pour initialiser les autres modules et plugins qui vont être installés
+
+# si on veut lancer l'installation d'un module en particulier avant de lancer les autres on utilise la commande:
+	terraform apply -target module.docker_install

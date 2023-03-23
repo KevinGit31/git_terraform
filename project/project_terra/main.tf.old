@@ -1,0 +1,13 @@
+
+# parcours tableau
+
+variable "l_hosts" {
+	default = ["127.0.0.1 localhost", "192.168.1.104 gitlab.test"]
+}
+
+resource "null_resource" "hosts" {
+	count = "${length(var.l_hosts)}"
+	provisioner "local-exec" {
+		command = "echo '${element(var.l_hosts, count.index)}' > l_hosts.txt"
+	}
+}
